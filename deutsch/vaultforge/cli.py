@@ -6,7 +6,7 @@ import secrets
 import string
 import threading
 
-AUTO_LOCK_SECONDS = 15
+AUTO_LOCK_SECONDS = 45
 last_action = time.time()
 locked = False
 
