@@ -3,7 +3,6 @@ Local Passwordmanager
 
 coded with python 3.14
 
-
 Legal
 
 License
