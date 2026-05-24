@@ -1,6 +1,7 @@
 import os
 from .crypto import derive_key
 from .storage import save_encrypted, load_encrypted
+import getpass
 import time
 import secrets
 import string
@@ -18,6 +19,7 @@ def reset_timer():
 
 def lock_vault():
     global locked
+    key = None
     locked = True
 
 def auto_lock_thread():
@@ -25,17 +27,18 @@ def auto_lock_thread():
     while True:
         if (time.time() - last_action) > AUTO_LOCK_SECONDS:
             locked = True
+            key = None
         time.sleep(0.5)
 
-def getpass(prompt=""):
-    return input(prompt)
+def getpw(prompt=""):
+    return getpass.getpass(prompt)
 
 def init_master():
     if os.path.exists(SALT_FILE):
         print("Bereits initialisiert.")
         return
 
-    master = getpass("Master-Passwort setzen: ")
+    master = getpw("Master-Passwort setzen: ")
     salt = os.urandom(16)
     with open(SALT_FILE, "wb") as f:
         f.write(salt)
@@ -49,7 +52,7 @@ def unlock():
         print("Vault nicht initialisiert.")
         return None
 
-    master = getpass("Master-Passwort: ")
+    master = getpw("Master-Passwort: ")
     salt = open(SALT_FILE, "rb").read()
 
     try:
@@ -74,6 +77,7 @@ def cli_loop(key):
     while True:
         if locked:
             print("Auto-Lock aktiviert. Bitte erneut entsperren.")
+            key = None
             return
 
         cmd = input("\nvault> ").strip()
@@ -95,7 +99,7 @@ def cli_loop(key):
         if cmd.startswith("add "):
             name = cmd[4:]
             user = input("Username: ")
-            pw = getpass("Passwort: ")
+            pw = getpw("Passwort: ")
             data = load_encrypted(key)
             data[name] = {"user": user, "pw": pw}
             save_encrypted(key, data)
