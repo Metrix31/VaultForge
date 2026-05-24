@@ -5,9 +5,9 @@ VaultForge is maintained on a semi‑active basis. Security updates are provided
 
 Version	Supported
 
-Latest	:white_check_mark: (semi‑active)
+Latest	✅ (semi‑active)
 
-Older	:x:
+Older	❌
 
 
 Users are encouraged to always update to the newest release, as older versions may not receive security fixes.
