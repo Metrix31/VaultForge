@@ -10,28 +10,37 @@ import threading
 AUTO_LOCK_SECONDS = 15
 last_action = time.time()
 locked = False
+key = None
 
 SALT_FILE = "salt.bin"
 
 def reset_timer():
+    """Reset the inactivity timer for auto-lock."""
     global last_action
     last_action = time.time()
 
 def lock_vault():
-    global locked
+    """Lock the vault and wipe the key from memory."""
+    global locked, key
+    key = None
     locked = True
 
 def auto_lock_thread():
-    global locked
+    """Background thread that locks the vault after inactivity."""
+    global locked, key
     while True:
         if (time.time() - last_action) > AUTO_LOCK_SECONDS:
             locked = True
+            key = None
         time.sleep(0.5)
 
 def getpw(prompt=""):
+    """Password input wrapper."""
     return getpass.getpass(prompt)
 
 def init_master():
+    """Initialize the vault by creating a master password and salt."""
+    global key
     if os.path.exists(SALT_FILE):
         print("Already initialized.")
         return
@@ -46,6 +55,8 @@ def init_master():
     print("Vault initialized.")
 
 def unlock():
+    """Unlock the vault by deriving the key from the master password."""
+    global key
     if not os.path.exists(SALT_FILE):
         print("Vault not initialized.")
         return None
@@ -59,12 +70,14 @@ def unlock():
         print("Unlocked.")
         return key
     except:
-        print("Wrong password.")
+        print("Incorrect password.")
         return None
 
-def cli_loop(key):
-    global locked
+def cli_loop(k):
+    """Main CLI loop for interacting with the vault."""
+    global locked, key
     locked = False
+    key = k
 
     print("Commands:\nlist \nadd <name> \nshow <name> \ndelete <name> \ngenerate \nlock")
 
@@ -76,6 +89,7 @@ def cli_loop(key):
     while True:
         if locked:
             print("Auto-lock activated. Please unlock again.")
+            key = None
             return
 
         cmd = input("\nvault> ").strip()
