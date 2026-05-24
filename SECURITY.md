@@ -4,7 +4,9 @@ Supported Versions
 VaultForge is maintained on a semi‑active basis. Security updates are provided only for the latest stable version when necessary and as time permits.
 
 Version	Supported
+
 Latest	:white_check_mark: (semi‑active)
+
 Older	:x:
 
 
