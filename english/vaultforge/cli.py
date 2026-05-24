@@ -1,6 +1,7 @@
 import os
 from .crypto import derive_key
 from .storage import save_encrypted, load_encrypted
+import getpass
 import time
 import secrets
 import string
@@ -27,15 +28,15 @@ def auto_lock_thread():
             locked = True
         time.sleep(0.5)
 
-def getpass(prompt=""):
-    return input(prompt)
+def getpw(prompt=""):
+    return getpass.getpass(prompt)
 
 def init_master():
     if os.path.exists(SALT_FILE):
         print("Already initialized.")
         return
 
-    master = getpass("Set master password: ")
+    master = getpw("Set master password: ")
     salt = os.urandom(16)
     with open(SALT_FILE, "wb") as f:
         f.write(salt)
@@ -49,7 +50,7 @@ def unlock():
         print("Vault not initialized.")
         return None
 
-    master = getpass("Master password: ")
+    master = getpw("Master password: ")
     salt = open(SALT_FILE, "rb").read()
 
     try:
@@ -96,7 +97,7 @@ def cli_loop(key):
         if cmd.startswith("add "):
             name = cmd[4:]
             user = input("Username: ")
-            pw = getpass("Password: ")
+            pw = getpw("Password: ")
             data = load_encrypted(key)
             data[name] = {"user": user, "pw": pw}
             save_encrypted(key, data)
