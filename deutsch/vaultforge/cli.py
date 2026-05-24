@@ -10,6 +10,7 @@ import threading
 AUTO_LOCK_SECONDS = 15
 last_action = time.time()
 locked = False
+key = None
 
 SALT_FILE = "salt.bin"
 
@@ -18,12 +19,12 @@ def reset_timer():
     last_action = time.time()
 
 def lock_vault():
-    global locked
+    global locked, key
     key = None
     locked = True
 
 def auto_lock_thread():
-    global locked
+    global locked, key
     while True:
         if (time.time() - last_action) > AUTO_LOCK_SECONDS:
             locked = True
@@ -34,6 +35,7 @@ def getpw(prompt=""):
     return getpass.getpass(prompt)
 
 def init_master():
+    global key
     if os.path.exists(SALT_FILE):
         print("Bereits initialisiert.")
         return
@@ -48,6 +50,7 @@ def init_master():
     print("Vault initialisiert.")
 
 def unlock():
+    global key
     if not os.path.exists(SALT_FILE):
         print("Vault nicht initialisiert.")
         return None
