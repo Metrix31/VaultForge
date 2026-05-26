@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VaultForge ist ein lokaler Passwortmanager mit AES-GCM-Verschlüsselung, CLI, Tkinter-GUI und Auto-Lock.">
+  <title>VaultForge | Lokaler Passwortmanager</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="VaultForge Startseite">
+      <span class="brand-mark">VF</span>
+      <span>VaultForge</span>
+    </a>
+    <nav class="nav" aria-label="Hauptnavigation">
+      <a href="#features">Funktionen</a>
+      <a href="#security">Sicherheit</a>
+      <a href="#infos">Infos</a>
+      <a href="#download">Download</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-content">
+        <p class="eyebrow">Lokaler Passwortmanager</p>
+        <h1 id="hero-title">VaultForge</h1>
+        <p class="hero-copy">
+          Speichere Zugangsdaten lokal verschlüsselt, entsperre deinen Tresor mit einem Master-Passwort
+          und nutze VaultForge direkt über CLI oder eine einfache Desktop-GUI.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="https://github.com/Metrix31/VaultForge/releases" target="_blank" rel="noopener">EXE herunterladen</a>
+          <a class="button secondary" href="https://github.com/Metrix31/VaultForge" target="_blank" rel="noopener">Quellcode ansehen</a>
+          <a class="button secondary" href="#security">Sicherheitsdetails</a>
+        </div>
+      </div>
+
+      <div class="vault-preview" aria-label="VaultForge Oberfläche als Vorschau">
+        <div class="preview-topbar">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="preview-body">
+          <div class="preview-sidebar">
+            <strong>VaultForge</strong>
+            <span class="active">Tresor</span>
+            <span>Generator</span>
+            <span>Auto-Lock</span>
+          </div>
+          <div class="preview-panel">
+            <div class="status-row">
+              <span class="status-dot"></span>
+              <span>Entsperrt</span>
+            </div>
+            <div class="entry-card">
+              <span>github.com</span>
+              <strong>user@example.com</strong>
+              <small>Passwort verborgen</small>
+            </div>
+            <div class="entry-card">
+              <span>banking</span>
+              <strong>lokaler Eintrag</strong>
+              <small>AES-GCM verschlüsselt</small>
+            </div>
+            <div class="terminal-line">vault&gt; generate</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features" aria-labelledby="features-title">
+      <div class="section-heading">
+        <p class="eyebrow">Funktionen</p>
+        <h2 id="features-title">Alles Wichtige für einen lokalen Tresor</h2>
+      </div>
+      <div class="feature-grid">
+        <article class="card">
+          <span class="icon">+</span>
+          <h3>Einträge verwalten</h3>
+          <p>Lege Logins an, liste gespeicherte Namen auf, zeige Details an und lösche Einträge wieder.</p>
+        </article>
+        <article class="card">
+          <span class="icon">*</span>
+          <h3>Passwörter generieren</h3>
+          <p>Der integrierte Generator erstellt zufällige 16-Zeichen-Passwörter mit Buchstaben, Zahlen und Sonderzeichen.</p>
+        </article>
+        <article class="card">
+          <span class="icon">15</span>
+          <h3>Auto-Lock</h3>
+          <p>Nach Inaktivität sperrt VaultForge den Tresor automatisch und entfernt den Schlüssel aus der laufenden Sitzung.</p>
+        </article>
+        <article class="card">
+          <span class="icon">&gt;_</span>
+          <h3>CLI und GUI</h3>
+          <p>Nutze VaultForge im Terminal oder starte die Tkinter-Oberfläche für eine einfache Desktop-Bedienung.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="security-band" id="security" aria-labelledby="security-title">
+      <div>
+        <p class="eyebrow">Sicherheit</p>
+        <h2 id="security-title">Verschlüsselung bleibt lokal</h2>
+        <p>
+          VaultForge speichert den Tresor in <code>vault.db</code>. Die Daten werden vor dem Schreiben mit AES-GCM
+          verschlüsselt. Der Schlüssel wird aus deinem Master-Passwort über PBKDF2-HMAC-SHA256 mit 200.000 Iterationen
+          und lokalem Salt abgeleitet.
+        </p>
+      </div>
+      <ul class="security-list">
+        <li><strong>AES-GCM:</strong> authentifizierte Verschlüsselung für gespeicherte Daten.</li>
+        <li><strong>PBKDF2:</strong> Key-Derivation mit SHA-256 und 32-Byte-Schlüssel.</li>
+        <li><strong>Lokale Dateien:</strong> keine Cloud-Anbindung, kein Konto, kein Sync-Zwang.</li>
+      </ul>
+    </section>
+
+    <section class="section info-section" id="infos" aria-labelledby="infos-title">
+      <div class="section-heading">
+        <p class="eyebrow">Infos</p>
+        <h2 id="infos-title">Projekt, Versionen und Verantwortung</h2>
+      </div>
+      <div class="info-grid">
+        <article class="card">
+          <h3>Open Source</h3>
+          <p>
+            VaultForge ist ein Open-Source-Tool von Metrix31. Open Source bedeutet, dass der Quellcode öffentlich
+            einsehbar ist und von anderen geprüft, nachvollzogen und weiterentwickelt werden kann.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Versionen und Download</h3>
+          <p>
+            Die EXE-Dateien werden über GitHub Releases veröffentlicht. Den Quellcode findest du im GitHub-Repository:
+            <a href="https://github.com/Metrix31/VaultForge" target="_blank" rel="noopener">github.com/Metrix31/VaultForge</a>.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Haftungshinweis</h3>
+          <p>
+            Die Nutzung erfolgt auf eigene Verantwortung. Metrix31 übernimmt keine Haftung für verlorene,
+            beschädigte oder kompromittierte Passwörter oder Daten.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section download-section" id="download" aria-labelledby="download-title">
+      <div class="download-copy">
+        <p class="eyebrow">Download</p>
+        <h2 id="download-title">VaultForge lokal starten</h2>
+        <p>
+          Lade die EXE ausschließlich über GitHub Releases herunter. Den Quellcode findest du direkt im GitHub-Repository.
+        </p>
+        <p>
+          Zum Ausführen des Quellcodes wird Python benötigt.
+        </p>
+      </div>
+      <div class="download-box">
+        <a class="button primary full" href="https://github.com/Metrix31/VaultForge/releases" target="_blank" rel="noopener">GitHub Releases öffnen</a>
+        <a class="button secondary full" href="https://github.com/Metrix31/VaultForge" target="_blank" rel="noopener">Quellcode öffnen</a>
+        <div class="command-box">
+          <button class="copy-button" type="button" data-copy="pip install cryptography">Kopieren</button>
+          <code>pip install cryptography</code>
+        </div>
+        <div class="command-box">
+          <button class="copy-button" type="button" data-copy="python gui.py">Kopieren</button>
+          <code>python gui.py           </code>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>VaultForge</span>
+    <span>Lokaler Passwortmanager für Windows, macOS und Linux mit Python.</span>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
