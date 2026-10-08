@@ -19,8 +19,7 @@ If you discover a security vulnerability in VaultForge, please report it respons
 How to report
 
 Please send an email to:
-securityVaultForge@proton.me
-(If no security email is available, an alternative contact method should be provided.)
+Metrix31Labs@proton.me
 
 Include the following information:
 
